@@ -11,18 +11,16 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use("api/v1", userRoute);
 app.use(express.json());
-app.use("/public", express.static(path.join(__dirname, "../frontend/public")));
+
+app.use(express.static(path.join("../frontend/public")));
 
 // Routes
 app.get("/", (req, res) => {
-    res.send("This is home Page");
+
+    const homepagePath = path.join(__dirname, "../frontend/public/homePage.html");
+    res.sendFile(homepagePath);
 });
 
-app.get("/signup", (req, res) => {
-    const signupPath = path.join(__dirname, "../frontend/Login&SignUp_Index.html");
-    res.sendFile(signupPath);
-    // console.log(__dirname);
-})
 
 // connect to DB
 const PORT = process.env.PORT || 3000;
